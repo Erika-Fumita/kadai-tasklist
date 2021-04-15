@@ -9,6 +9,10 @@
             <td style='width:70%'>{{$task->id}}</td>
         </tr>
          <tr>
+            <th>ステータス</th>
+            <td>{{$task->status}}</td>
+        </tr>
+          <tr>
             <th>やること</th>
             <td>{{$task->content}}</td>
         </tr>

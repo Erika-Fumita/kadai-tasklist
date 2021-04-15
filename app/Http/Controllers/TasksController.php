@@ -40,10 +40,15 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        $task = new Task;
+        $request->validate([
+                'content' => 'required',
+                'status' => 'required|max:10'
+            ]);
         
         // DD($request);
+        $task = new Task;
         $task->content = $request->content;
+        $task->status = $request->status;
         $task->save();
         
         return redirect('/');
@@ -84,9 +89,14 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
+         $request->validate([
+                'content' => 'required',
+                'status' => 'required|max:10'
+            ]);
+            
         $task = Task::findOrFail($id);
-        
         $task->content = $request->content;
+        $task->status = $request->status;
         $task->save();
 
         return redirect('/');

@@ -9,6 +9,8 @@
             <div class='form-group'>
                 {!! Form::label('content', 'やること:') !!}
                 {!! Form::text('content', null, ['class' => 'form-control']) !!}
+                {!! Form::label('status', 'ステータス:') !!}
+                {!! Form::Input('text', 'status', null, ['class' => 'form-control']) !!}
             </div>
                 {!! Form::submit('投稿') !!}
             {!! Form::close() !!}
