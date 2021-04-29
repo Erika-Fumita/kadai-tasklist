@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Task;
 
+
 class TasksController extends Controller
 {
     /**
@@ -15,9 +16,20 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $data = [];
         
-        return view('tasks.index', ['tasks' => $tasks]);
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $tasks = $user->tasks()->orderBy('created_at')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'tasks' => $tasks
+            ];
+        }
+        
+        
+        return view('welcome', $data);
     }
 
     /**
@@ -46,10 +58,10 @@ class TasksController extends Controller
             ]);
         
         // DD($request);
-        $task = new Task;
-        $task->content = $request->content;
-        $task->status = $request->status;
-        $task->save();
+        $request->user()->tasks()->create([
+           'content' => $request->content,
+           'status' => $request->status
+        ]);
         
         return redirect('/');
     }

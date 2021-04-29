@@ -11,7 +11,13 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
+                @if(Auth::check())
                     <li>{!! link_to_route('tasks.create', '新規作成', [], ['class' => 'nav-link']) !!}</li>
+                    <li>{!! link_to_route('logout.get', 'ログアウト', [], ['class' => 'nav-link']) !!}</li>
+                @else
+                    <li>{!! link_to_route('signup.get', 'サインアップ', [], ['class' => 'nav-link']) !!}</li>
+                    <li>{!! link_to_route('login', 'ログイン', [], ['class' => 'nav-link']) !!}</li>
+                @endif
             </ul>
         </div>
     </nav>
